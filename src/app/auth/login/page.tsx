@@ -10,6 +10,7 @@ const styles = {
 };
 
 const LoginPage = () => {
+
     return (
         <div className='w-full min-h-screen flex justify-center items-center bg-slate-100'>
             <div className='sm:max-w-[450px] w-full h-screen sm:h-fit min-h-[300px] rounded-xl shadow-xl bg-white text-gray-700 text-center pt-32 sm:p-10 p-10 items-center flex flex-col' >
