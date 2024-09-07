@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Button, Form, Input, InputGroup } from 'rsuite'
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-import { auth } from '../../firebaseConfig'
+import { auth } from '../../../../firebaseConfig'
 
 const styles = {
     width: '100%',

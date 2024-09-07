@@ -1,15 +1,37 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Input, InputGroup } from 'rsuite'
 import Link from 'next/link';
 import Image from 'next/image';
+import useFirebaseAuth from '../../../hooks/useFirebaseAuth';
 
 const styles = {
     width: '100%',
     marginBottom: 16
 };
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const { user, error, loading, login, loginWithGoogle } = useFirebaseAuth();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        console.log('handleSubmit')
+        e.preventDefault();
+        await login(email, password);
+        console.log("User : ", user)
+    };
+
+    const handleLoginWithGoogle = async (e: React.FormEvent) => { 
+        e.preventDefault();
+        await loginWithGoogle()
+
+     }
+
+     useEffect(() => {
+        console.log("User : ", user)
+     }, [user])
+     
 
     return (
         <div className='w-full min-h-screen flex justify-center items-center bg-slate-100'>
@@ -26,17 +48,23 @@ const LoginPage = () => {
                     <InputGroup.Addon>
                         <Image width="20" height="20" src="https://img.icons8.com/717883/parakeet-line/48/new-post.png" alt="new-post" />
                     </InputGroup.Addon>
-                    <Input placeholder='Email' />
+                    <Input placeholder='Email' type="email"
+                        value={email}
+                        onChange={(value: string) => setEmail(value)}
+                        required />
                 </InputGroup>
                 <InputGroup size='lg' inside style={styles}>
                     <InputGroup.Addon>
                         <Image width="20" height="20" src="https://img.icons8.com/717883/ios/48/key.png" alt="key" />
                     </InputGroup.Addon>
-                    <Input placeholder='Password' />
+                    <Input placeholder='Password' type="password"
+                        value={password}
+                        onChange={(value: string) => setPassword(value)}
+                        required />
                 </InputGroup>
-                <Button appearance='primary' style={styles} size='lg' >Login</Button>
+                <Button onClick={handleSubmit} appearance='primary' style={styles} size='lg' >Login</Button>
                 <div className='w-full border-t pt-2 border-slate-200 mb-4 text-sm text-slate-400'>or continue with</div>
-                <Button appearance='ghost' size='lg' style={styles} startIcon={<Image width="24" height="24" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" />} >Google</Button>
+                <Button onClick={handleLoginWithGoogle} appearance='ghost' size='lg' style={styles} startIcon={<Image width="24" height="24" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" />} >Google</Button>
             </div>
         </div>
     )
