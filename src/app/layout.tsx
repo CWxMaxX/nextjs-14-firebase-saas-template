@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CustomProvider } from 'rsuite';
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import "./globals.css";
+import { AuthContextProvider } from "../context/AuthContext";
 
 
 export const metadata: Metadata = {
@@ -17,7 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CustomProvider>{children}</CustomProvider>
+        <CustomProvider>
+          <AuthContextProvider>
+            {children}
+          </AuthContextProvider>
+        </CustomProvider>
       </body>
     </html>
   );

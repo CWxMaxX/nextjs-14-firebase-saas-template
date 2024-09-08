@@ -16,15 +16,22 @@ const LoginPage: React.FC = () => {
     const { user, error, loading, login, loginWithGoogle } = useFirebaseAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log('handleSubmit')
         e.preventDefault();
-        await login(email, password);
-        console.log("User : ", user)
+        try {
+            await login(email, password);   
+        } catch (error) {
+            console.log(error)
+           
+        }
     };
 
     const handleLoginWithGoogle = async (e: React.FormEvent) => { 
         e.preventDefault();
-        await loginWithGoogle()
+        try {
+            await loginWithGoogle()
+        } catch (error) {
+            console.log(error)
+        }
 
      }
 
